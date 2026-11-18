@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>АнтиСкам — Так бывает?</title>
+
+  <style>
+    :root{
+      --bg1:#0d0716;
+      --bg2:#1b0c2e;
+      --text:#ffffff;
+      --muted:#b9adc8;
+      --violet:#9b5cff;
+      --violet2:#6f3ee8;
+      --green:#25d39a;
+      --yellow:#f5b84b;
+      --red:#ff5d6c;
+      --border:rgba(255,255,255,.10);
+    }
+
+   *{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top right, rgba(155,92,255,.18), transparent 30%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  min-height:100vh;
+}
+
+.app{
+  width:min(100%,460px);
+  margin:0 auto;
+  padding:22px 18px 40px;
+}
+
+.brand{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.brand h1{
+  margin:0;
+  font-size:30px;
+}
+
+.badge{
+  font-size:12px;
+  color:#d9c6ff;
+  border:1px solid rgba(155,92,255,.35);
+  background:rgba(155,92,255,.12);
+  padding:7px 10px;
+  border-radius:999px;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.hero{
+  background:linear-gradient(145deg,rgba(155,92,255,.18),rgba(255,255,255,.04));
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:18px;
+}
+
+h2{
+  margin:0 0 8px;
+  font-size:28px;
+}
+
+.lead{
+  margin:0;
+  color:var(--muted);
+  line-height:1.5;
+  font-size:15px;
+}
+
+.option{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:15px 16px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.045);
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.option:hover{
+  transform:translateY(-1px);
+  background:rgba(255,255,255,.075);
+}
+
+.option.selected{
+  border-color:var(--violet);
+  background:rgba(155,92,255,.16);
+}
+
+.icon{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.option strong{
+  display:block;
+  margin-bottom:3px;
+}
+
+.option small{
+  color:var(--muted);
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+button{
+  border:0;
+  border-radius:16px;
+  padding:15px 16px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.primary{
+  flex:1;
+  color:white;
+  background:linear-gradient(135deg,var(--violet),var(--violet2));
+}
+
+.secondary{
+  color:white;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--border);
+}
+
+.result-header{
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:14px;
+  border:1px solid;
+}
+
+.result-header.low{
+  background:rgba(37,211,154,.12);
+  border-color:var(--green);
+}
+
+.result-header.medium{
+  background:rgba(245,184,75,.12);
+  border-color:var(--yellow);
+}
+
+.result-header.high{
+  background:rgba(255,93,108,.15);
+  border-color:var(--red);
+}
+
+.risk-title{
+  font-size:30px;
+  font-weight:800;
+  margin:6px 0 8px;
+}
+
+.score{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(0,0,0,.2);
+}
+
+.panel{
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:17px;
+  margin-top:12px;
+}
+
+.panel h3{
+  margin:0 0 10px;
+}
+
+.flag{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.flag:last-child{
+  border-bottom:0;
+}
+
+.flag-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--red);
+  margin-top:5px;
+}
+
+.urgent{
+  background:rgba(255,93,108,.10);
+  border-color:rgba(255,93,108,.4);
+}
+
+.verify{
+  background:rgba(155,92,255,.10);
+}
+
+.small-note{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+
+.already-btn{
+  width:100%;
+  text-align:left;
+  color:white;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border);
+  margin-bottom:10px;
+}
+
+.footer-note{
+  margin-top:28px;
+  color:#8f829f;
+  font-size:12px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="brand">
+    <h1>АнтиСкам</h1>
+    <div class="badge">Так бывает?</div>
+  </div>
+
+
+  <!-- ЭКРАН 1 -->
+  <section id="s1" class="screen active">
+
+    <div class="hero">
+      <h2>Что происходит прямо сейчас?</h2>
+      <p class="lead">
+        Отметь все признаки, которые подходят к ситуации.
+      </p>
+    </div>
+
+    <div class="option multi"
+         data-score="3"
+         data-critical="true"
+         data-label="Просят код из СМС">
+
+      <div class="icon">🔐</div>
+
+      <div>
+        <strong>Просят назвать код из СМС</strong>
+        <small>Для записи, доставки, банка, оператора и т.д.</small>
+      </div>
+    </div>
+
+
+    <div class="option multi"
+         data-score="2"
+         data-label="Говорят никому не рассказывать">
+
+      <div class="icon">🤫</div>
+
+      <div>
+        <strong>Говорят никому не рассказывать</strong>
+        <small>Просят скрыть разговор от родителей или друзей.</small>
+      </div>
+    </div>
+
+
+    <div class="option multi"
+         data-score="3"
+         data-label="Угрожают тебе или родителям">
+
+      <div class="icon">⚠️</div>
+
+      <div>
+        <strong>Угрожают тебе или родителям</strong>
+        <small>Пугают уголовным делом или другими последствиями.</small>
+      </div>
+    </div>
+
+
+    <div class="option multi"
+         data-score="4"
+         data-critical="true"
+         data-label="Просят деньги или ценности">
+
+      <div class="icon">💸</div>
+
+      <div>
+        <strong>Просят передать деньги или ценности</strong>
+        <small>Переводом, наличными или через курьера.</small>
+      </div>
+    </div>
+
+
+    <div class="option multi"
+         data-score="2"
+         data-label="Требуют действовать срочно">
+
+      <div class="icon">⏱️</div>
+
+      <div>
+        <strong>Требуют действовать срочно</strong>
+        <small>Не дают времени подумать или проверить информацию.</small>
+      </div>
+    </div>
+
+
+    <div class="option multi"
+         data-score="1"
+         data-label="Представляются официальной организацией">
+
+      <div class="icon">🏛️</div>
+
+      <div>
+        <strong>Представляются официальной организацией</strong>
+        <small>Банк, полиция, ФСБ, военкомат, оператор и т.д.</small>
+      </div>
+    </div>
+
+
+    <div class="option multi"
+         data-score="0"
+         data-label="Пока ничего опасного не требуют">
+
+      <div class="icon">○</div>
+
+      <div>
+        <strong>Пока ничего опасного не требуют</strong>
+        <small>Этот ответ сам по себе не повышает риск.</small>
+      </div>
+    </div>
+
+
+    <div class="actions">
+      <button class="primary" onclick="showScreen(2)">
+        Продолжить
+      </button>
+    </div>
+
+  </section>
+
+
+
+  <!-- ЭКРАН 2 -->
+  <section id="s2" class="screen">
+
+    <div class="hero">
+      <h2>Кем представился человек?</h2>
+      <p class="lead">
+        Это поможет проверить правдоподобность истории.
+      </p>
+    </div>
+
+    <div class="option org" data-org="Полиция / ФСБ">
+      <div class="icon">🛡️</div>
+      <strong>Полиция / ФСБ</strong>
+    </div>
+
+    <div class="option org" data-org="Банк">
+      <div class="icon">🏦</div>
+      <strong>Банк</strong>
+    </div>
+
+    <div class="option org" data-org="Военкомат">
+      <div class="icon">📄</div>
+      <strong>Военкомат</strong>
+    </div>
+
+    <div class="option org" data-org="Мобильный оператор">
+      <div class="icon">📱</div>
+      <strong>Мобильный оператор</strong>
+    </div>
+
+    <div class="option org" data-org="Поликлиника / доставка">
+      <div class="icon">🏥</div>
+      <strong>Поликлиника / доставка</strong>
+    </div>
+
+    <div class="option org" data-org="Работодатель">
+      <div class="icon">💼</div>
+      <strong>Работодатель / подработка</strong>
+    </div>
+
+    <div class="option org" data-org="Не знаю">
+      <div class="icon">❓</div>
+      <strong>Не знаю / другое</strong>
+    </div>
+
+
+    <div class="actions">
+
+      <button class="secondary" onclick="showScreen(1)">
+        Назад
+      </button>
+
+      <button class="primary" onclick="showScreen(3)">
+        Дальше
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ЭКРАН 3 -->
+  <section id="s3" class="screen">
+
+    <div class="hero">
+
+      <h2>Что от тебя требуют?</h2>
+
+      <p class="lead">
+        Выбери действие, которое тебя просят выполнить.
+      </p>
+
+    </div>
+
+
+    <div class="option action"
+         data-action="Назвать код из СМС"
+         data-score="4"
+         data-critical="true">
+
+      <div class="icon">🔐</div>
+
+      <strong>
+        Назвать код из СМС
+      </strong>
+
+    </div>
+
+
+    <div class="option action"
+         data-action="Перевести деньги"
+         data-score="5"
+         data-critical="true">
+
+      <div class="icon">💸</div>
+
+      <strong>
+        Перевести или передать деньги
+      </strong>
+
+    </div>
+
+
+    <div class="option action"
+         data-action="Передать ценности"
+         data-score="5"
+         data-critical="true">
+
+      <div class="icon">👜</div>
+
+      <strong>
+        Вынести деньги, сумку или ценности
+      </strong>
+
+    </div>
+
+
+    <div class="option action"
+         data-action="Переслать чужие деньги"
+         data-score="4"
+         data-critical="true">
+
+      <div class="icon">🔄</div>
+
+      <strong>
+        Принять и переслать чужие деньги
+      </strong>
+
+    </div>
+
+
+    <div class="option action"
+         data-action="Передать доступ"
+         data-score="4"
+         data-critical="true">
+
+      <div class="icon">🪪</div>
+
+      <strong>
+        Передать документы или доступ к аккаунту
+      </strong>
+
+    </div>
+
+
+    <div class="option action"
+         data-action="Просто уточнить информацию"
+         data-score="0">
+
+      <div class="icon">ℹ️</div>
+
+      <strong>
+        Просто уточнить информацию
+      </strong>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button class="secondary" onclick="showScreen(2)">
+        Назад
+      </button>
+
+      <button class="primary" onclick="calculateRisk()">
+        Проверить ситуацию
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ЭКРАН 4 -->
+  <section id="s4" class="screen">
+
+    <div id="resultHeader" class="result-header medium">
+
+      <div>
+        Результат проверки
+      </div>
+
+      <div id="riskTitle" class="risk-title">
+        Есть признаки риска
+      </div>
+
+      <p id="riskText" class="lead"></p>
+
+      <div id="scoreText" class="score"></div>
+
+    </div>
+
+
+    <div class="panel">
+
+      <h3>
+        Что вызвало подозрение
+      </h3>
+
+      <div id="flags"></div>
+
+    </div>
+
+
+    <div class="panel urgent">
+
+      <h3>
+        Что делать прямо сейчас
+      </h3>
+
+      <p id="nowAdvice" class="lead"></p>
+
+    </div>
+
+
+    <div class="panel verify">
+
+      <h3>
+        Как проверить информацию
+      </h3>
+
+      <p id="verifyAdvice" class="lead"></p>
+
+    </div>
+
+
+    <button
+      class="primary"
+      style="width:100%;margin-top:18px"
+      onclick="showScreen(5)">
+
+      Я уже сделал то, что просили
+
+    </button>
+
+
+    <button
+      class="secondary"
+      style="width:100%;margin-top:10px"
+      onclick="restart()">
+
+      Проверить другую ситуацию
+
+    </button>
+
+
+    <p class="small-note">
+
+      Это учебный прототип.
+      Он не может определить мошенничество со 100% точностью
+      и не заменяет экстренные службы или профессиональную помощь.
+
+    </p>
+
+  </section>
+
+
+
+  <!-- ЭКРАН 5 -->
+  <section id="s5" class="screen">
+
+    <div class="hero">
+
+      <h2>
+        Что уже произошло?
+      </h2>
+
+      <p class="lead">
+        Выбери ближайший вариант.
+      </p>
+
+    </div>
+
+
+    <button
+      class="already-btn"
+      onclick="already('sms')">
+
+      Я уже назвал код из СМС
+
+    </button>
+
+
+    <button
+      class="already-btn"
+      onclick="already('money')">
+
+      Я уже перевёл или передал деньги
+
+    </button>
+
+
+    <button
+      class="already-btn"
+      onclick="already('account')">
+
+      Я уже передал доступ к аккаунту
+
+    </button>
+
+
+    <button
+      class="already-btn"
+      onclick="already('carry')">
+
+      Я уже взял деньги или сумку и куда-то еду
+
+    </button>
+
+
+    <div
+      id="alreadyResult"
+      class="panel urgent"
+      style="display:none">
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="secondary"
+        onclick="showScreen(4)">
+
+        Назад
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <div class="footer-note">
+
+    АнтиСкам — учебный социальный прототип
+    для подростков 16–17 лет.
+
+  </div>
+
+</div>
+
+
+<script>
+
+let selectedOrg = "";
+
+let selectedAction = "";
+
+let selectedActionScore = 0;
+
+let selectedActionCritical = false;
+
+
+
+function showScreen(number){
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+  document
+    .getElementById("s" + number)
+    .classList.add("active");
+
+  window.scrollTo(0,0);
+
+}
+
+
+
+document
+  .querySelectorAll(".multi")
+  .forEach(option => {
+
+    option.addEventListener("click", () => {
+
+      option.classList.toggle("selected");
+
+    });
+
+  });
+
+
+
+document
+  .querySelectorAll(".org")
+  .forEach(option => {
+
+    option.addEventListener("click", () => {
+
+      document
+        .querySelectorAll(".org")
+        .forEach(x => {
+          x.classList.remove("selected");
+        });
+
+      option.classList.add("selected");
+
+      selectedOrg =
+        option.dataset.org;
+
+    });
+
+  });
+
+
+
+document
+  .querySelectorAll(".action")
+  .forEach(option => {
+
+    option.addEventListener("click", () => {
+
+      document
+        .querySelectorAll(".action")
+        .forEach(x => {
+          x.classList.remove("selected");
+        });
+
+      option.classList.add("selected");
+
+      selectedAction =
+        option.dataset.action;
+
+      selectedActionScore =
+        Number(option.dataset.score);
+
+      selectedActionCritical =
+        option.dataset.critical === "true";
+
+    });
+
+  });
+
+
+
+function calculateRisk(){
+
+  const selected =
+    [...document.querySelectorAll(".multi.selected")];
+
+  let score = 0;
+
+  let critical = false;
+
+  let labels = [];
+
+
+  selected.forEach(option => {
+
+    score +=
+      Number(option.dataset.score);
+
+    labels.push(
+      option.dataset.label
+    );
+
+    if(option.dataset.critical === "true"){
+
+      critical = true;
+
+    }
+
+  });
+
+
+  score += selectedActionScore;
+
+
+  if(selectedActionCritical){
+
+    critical = true;
+
+  }
+
+
+  if(selectedAction){
+
+    labels.push(
+      "Требуют: " + selectedAction
+    );
+
+  }
+
+
+  if(selectedOrg){
+
+    labels.push(
+      "Представились: " + selectedOrg
+    );
+
+  }
+
+
+
+  let level = "low";
+
+  let title =
+    "Недостаточно признаков для вывода";
+
+  let text =
+    "Сейчас система не обнаружила большого количества опасных признаков. Это не означает, что ситуация точно безопасна.";
+
+
+
+  if(score >= 9 || critical){
+
+    level = "high";
+
+    title =
+      "Высокий риск мошеннической схемы";
+
+    text =
+      "Обнаружены серьёзные признаки давления или критическое требование.";
+
+  }
+
+  else if(score >= 4){
+
+    level = "medium";
+
+    title =
+      "Есть признаки риска";
+
+    text =
+      "Несколько элементов ситуации похожи на известные мошеннические схемы.";
+
+  }
+
+
+
+  const header =
+    document.getElementById("resultHeader");
+
+
+  header.className =
+    "result-header " + level;
+
+
+  document
+    .getElementById("riskTitle")
+    .textContent = title;
+
+
+  document
+    .getElementById("riskText")
+    .textContent = text;
+
+
+  document
+    .getElementById("scoreText")
+    .textContent =
+      "Условный риск: " + score + " баллов";
+
+
+
+  const flags =
+    document.getElementById("flags");
+
+
+  flags.innerHTML = "";
+
+
+  labels.forEach(label => {
+
+    const row =
+      document.createElement("div");
+
+    row.className =
+      "flag";
+
+    row.innerHTML = `
+      <div class="flag-dot"></div>
+      <span>${label}</span>
+    `;
+
+    flags.appendChild(row);
+
+  });
+
+
+
+  let advice =
+    "Не сообщай новые данные и не выполняй требования, пока не проверишь ситуацию независимо.";
+
+
+  if(
+    selectedAction.includes("деньги") ||
+    selectedAction.includes("ценности")
+  ){
+
+    advice =
+      "Не передавай и не переводи деньги или ценности. Прекрати контакт и свяжись с доверенным взрослым.";
+
+  }
+
+
+  if(
+    selectedAction.includes("код")
+  ){
+
+    advice =
+      "Не сообщай код. Прекрати разговор и самостоятельно свяжись с организацией.";
+
+  }
+
+
+  document
+    .getElementById("nowAdvice")
+    .textContent = advice;
+
+
+
+  let verify =
+    "Самостоятельно найди официальный сайт, приложение или номер организации. Не используй контакты, которые дал звонящий.";
+
+
+  if(selectedOrg === "Банк"){
+
+    verify =
+      "Открой официальное приложение банка или самостоятельно позвони по официальному номеру.";
+
+  }
+
+
+  if(selectedOrg === "Полиция / ФСБ"){
+
+    verify =
+      "Прекрати разговор и проверь информацию через официальные контакты ведомства или вместе с доверенным взрослым.";
+
+  }
+
+
+  if(selectedOrg === "Мобильный оператор"){
+
+    verify =
+      "Открой приложение оператора или самостоятельно позвони в официальную поддержку.";
+
+  }
+
+
+  if(selectedOrg === "Военкомат"){
+
+    verify =
+      "Самостоятельно свяжись с военкоматом или проверь информацию через официальный государственный сервис.";
+
+  }
+
+
+  document
+    .getElementById("verifyAdvice")
+    .textContent = verify;
+
+
+  showScreen(4);
+
+}
+
+
+
+function already(type){
+
+  const box =
+    document.getElementById("alreadyResult");
+
+
+  box.style.display =
+    "block";
+
+
+  if(type === "sms"){
+
+    box.innerHTML = `
+
+      <h3>Код уже назван</h3>
+
+      <p class="lead">
+
+      Прекрати контакт.
+
+      Самостоятельно открой официальный сервис,
+      к которому относился код,
+      проверь безопасность аккаунта
+      и сообщи доверенному взрослому.
+
+      </p>
+
+    `;
+
+  }
+
+
+
+  if(type === "money"){
+
+    box.innerHTML = `
+
+      <h3>Деньги уже переданы</h3>
+
+      <p class="lead">
+
+      Не отправляй больше денег.
+
+      Сохрани переписку,
+      номера телефонов и чеки.
+
+      Свяжись с банком,
+      доверенным взрослым
+      и при необходимости полицией.
+
+      </p>
+
+    `;
+
+  }
+
+
+
+  if(type === "account"){
+
+    box.innerHTML = `
+
+      <h3>Доступ уже передан</h3>
+
+      <p class="lead">
+
+      Открой официальный сервис,
+      смени пароль,
+      заверши неизвестные сессии
+      и включи дополнительную защиту.
+
+      </p>
+
+    `;
+
+  }
+
+
+
+  if(type === "carry"){
+
+    box.innerHTML = `
+
+      <h3>Ты уже выполняешь поручение</h3>
+
+      <p class="lead">
+
+      Не передавай деньги
+      или вещи незнакомцу.
+
+      Перейди в безопасное место
+      и свяжись с доверенным взрослым.
+
+      Если тебе угрожают
+      или есть непосредственная опасность —
+      звони 112.
+
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+
+function restart(){
+
+  document
+    .querySelectorAll(".option")
+    .forEach(option => {
+      option.classList.remove("selected");
+    });
+
+
+  selectedOrg = "";
+
+  selectedAction = "";
+
+  selectedActionScore = 0;
+
+  selectedActionCritical = false;
+
+
+  document
+    .getElementById("alreadyResult")
+    .style.display = "none";
+
+
+  showScreen(1);
+
+}
+
+</script>
+
+</body>
+
+</html>
